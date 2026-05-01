@@ -1,0 +1,41 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4">
+      Post Form
+      <div class="form-group">
+        <input #postTitleControl type="text" class="form-control mb-2" />
+        <input #postBodyControl type="text" class="form-control mb-2" />
+        <button
+        *ngIf="!isEditMode"
+          (click)="onAddPost(postTitleControl, postBodyControl)"
+          class="btn-block btn-outline-primary"
+        >
+          Add Post
+        </button>
+          <button
+          
+        *ngIf="isEditMode"
+         (click)="onUpdatePost()"
+          class="btn-block btn-outline-primary"
+        >
+          Update Post
+        </button>
+      </div>
+    </div>
+    <div class="col-md-4">
+      PostList
+      <div *ngFor="let post of postArr ;trackBy : trackByFun" class="card mb-2">
+        <div class="card-header">
+          <strong>{{ post.postTitle }}</strong>
+        </div>
+        <div class="card-body">
+          <p>{{ post.postBody }}</p>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+          <button (click)="onEditPost(post)" class="btn btn-sm btn-outline-primary">Edit</button>
+          <button (click)="onRemovePost(post.postId)" class="btn btn-sm btn-outline-danger">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
