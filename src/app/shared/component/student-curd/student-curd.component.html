@@ -1,0 +1,53 @@
+<div class="conatiner mt-5">
+  <div class="row">
+    <div class="col-md-4 ml-1">
+      Student Form
+      <div class="form-group">
+        <strong>Student Name</strong>
+        <input type="text" #stdName class="form-control" />
+        <strong>Student Conatct</strong>
+        <input type="text" #stdContact class="form-control mb-1" />
+        <button
+          *ngIf="!isInEditMode"
+          (click)="onAddStudent(stdName, stdContact)"
+          class="btn-block btn-primary"
+        >
+          Add Student
+        </button>
+        <button
+          *ngIf="isInEditMode"
+          (click)="onUpdateStudent()"
+          class="btn-block btn-primary"
+        >
+          Update Student
+        </button>
+      </div>
+    </div>
+    <div class="col-md-6">
+      Student List
+      <ul *ngIf="studentArr.length > 0; else noStudent" class="list-group">
+        <li
+          *ngFor="let student of studentArr; trackBy: trackByFun"
+          class="list-group-item d-flex justify-content-between"
+        >
+          <strong>{{ student.stdName }} - {{ student.stdConatct }}</strong>
+          <div>
+            <i
+              (click)="onEdit(student)"
+              class="fa-solid fa-pen-to-square fa-2x text-primary"
+              role="button"
+            ></i>
+            <i
+              (click)="onRemove(student.stdId)"
+              class="fa-solid fa-trash-can fa-2x text-danger"
+              role="button"
+            ></i>
+          </div>
+        </li>
+      </ul>
+      <ng-template #noStudent>
+        <p class="alert alert-info">No Student yet....!</p>
+      </ng-template>
+    </div>
+  </div>
+</div>
