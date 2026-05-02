@@ -1,0 +1,95 @@
+<div class="row">
+  <div class="col-md-4 mb-4 mg-md-0">
+    <mat-card>
+      <h2>{{ isInEditMode ? "Update Student" : "Add Student" }}</h2>
+      <div class="form-group">
+        <label for="fname">First Name</label>
+        <input type="text" #fname class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="lname">Last Name</label>
+        <input type="text" #lname class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" #email class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="contact">Contact</label>
+        <input type="text" #contact class="form-control" />
+      </div>
+      <button
+        (click)="onStdAdd()"
+        *ngIf="!isInEditMode"
+        mat-raised-button
+        color="primary"
+        class="btn-block"
+      >
+        Add Student
+      </button>
+      <button
+      (click)="onUpdate()"
+        *ngIf="isInEditMode"
+        mat-raised-button
+        color="accent"
+        class="btn-block"
+      >
+        Update Student
+      </button>
+    </mat-card>
+  </div>
+  <div class="col-md-8">
+    <mat-card class="table-responsive">
+      <table
+        *ngIf="stdArr.length > 0; else noStudents"
+        class="table table-bordered"
+      >
+        <thead>
+          <tr>
+            <th>Sr.no</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>is Active</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let std of stdArr; let i = index; trackBy: trackByStudentId"
+          >
+            <td>{{ i + 1 }}</td>
+            <td>{{ std.fname }} {{ std.lname }}</td>
+            <td>{{ std.email }}</td>
+            <td>{{ std.contact }}</td>
+            <td class="text-center">{{std.isActive ? 'Yes' : 'No'}}</td>
+            <td class="text-center">
+              <button
+              (click)="onEdit(std)"
+                 mat-mini-fab
+                color="primary"
+                aria-label="Example icon button with a edit icon"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+            <td class="text-center">
+              <button
+                (click)="onstdRemove(std.stdId)"
+                mat-mini-fab
+                color="warn"
+                aria-label="Example icon button with a delete icon"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #noStudents>
+        <p class="alert alert-info">No student Found...!</p>
+      </ng-template>
+    </mat-card>
+  </div>
+</div>
